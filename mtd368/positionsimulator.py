@@ -7,39 +7,43 @@ class dailypositionanalyzer(object):
         # if self.validinput != None or not(self.userinput): # also accounting for the user just hitting return here.
         # raise ValueError('Invalid Intervals. found a character that does not belong or there was nothing entered.')random_outcome_per_position(position_value_calculator(x))
 
-# def day_of_trading_simulator(position, num_trails):
-#     cumu_ret = range(num_trails)
-#     daily_ret = range(num_trails)
-#     position = position
-#     for trial in range(num_trails):
-#         print trial, position, position_value_calculator(position)
-#         cumu_ret[trial] = float(random_outcome_per_position(position_value_calculator(position)))
-#         daily_ret[trial] = (cumu_ret[trial]/10000) - 1
-#     return cumu_ret, daily_ret
+def trading_simluator(numberOfSharesOfSinglePosition, num_trials):
+    dayOfTrading = np.empty((num_trials, numberOfSharesOfSinglePosition))
+    cumu_ret = np.empty((num_trials))
+    for x in np.nditer(t, op_flags=['readwrite']):
+        positionValue
 
-def day_of_trading_simulator(positions, num_trails):
-    cumu_ret = range(num_trails)
-    # count = len(positions)
-    daily_ret = [list(xrange(num_trails)) for _ in xrange(num_trails)]
-    counter = -1
-    for x in positions:
-        counter += 1
-        print "x in positions %d" % x
-        i = position_value_calculator(x)
-        for trial in range(num_trails):
-            print trial, i
-            cumu_ret[trial] = float(random_outcome_per_position(i))
-            # need to get the indexing correct for list in list.
-            daily_ret[trial] = (cumu_ret[trial]/10000) - 1
-    # print cumu_ret
+
+def day_of_trading_simulator(positions, num_trials):
+    a = positions
+    cumu_ret = np.empty((num_trials))
+    iteratorationTracker = 0
+    for x in np.nditer(a[0,:], flags=['external_loop']):
+        if iteratorationTracker < num_trials:
+            dayOfTrading = np.empty((num_trials, x))
+        iteratorationTracker +=
     return cumu_ret, daily_ret
+
+
+
+
+def position_value_calculator(position):
+    positionValue = 1000/int(position)
+    return random_outcome_per_position(positionValue)
 
 def random_outcome_per_position(position_value):
     doubleOrLooseDayValue = random_number_generator()
     if doubleOrLooseDayValue == 1:
         return position_value*2
-    else:
-        return 0
+    return 0
+
+
+
+def random_number_generator():
+    randomlistZeroToOne = np.random.random()
+    if (randomlistZeroToOne > 0.51):
+        return 1
+    return 0
 
 # def random_number_generator():
 #     randomlistZeroToOne = np.random.random(size=10000)
@@ -51,13 +55,30 @@ def random_outcome_per_position(position_value):
 #     else:
 #         return 0
 
-def random_number_generator():
-    randomlistZeroToOne = np.random.random()
-    if (randomlistZeroToOne > 0.51):
-        return 1
-    else:
-        return 0
+# def day_of_trading_simulator(position, num_trials):
+#     cumu_ret = range(num_trials)
+#     daily_ret = range(num_trials)
+#     position = position
+#     for trial in range(num_trials):
+#         print trial, position, position_value_calculator(position)
+#         cumu_ret[trial] = float(random_outcome_per_position(position_value_calculator(position)))
+#         daily_ret[trial] = (cumu_ret[trial]/10000) - 1
+#     return cumu_ret, daily_ret
 
-def position_value_calculator(position):
-    listOfPositionValues = 1000/int(position)
-    return listOfPositionValues
+# def day_of_trading_simulator(positions, num_trials):
+#     cumu_ret = range(num_trials)
+#     # count = len(positions)
+#     daily_ret = [list(xrange(num_trials)) for _ in xrange(num_trials)]
+#     counter = -1
+#     for x in positions:
+#         counter += 1
+#         print "x in positions %d" % x
+#         i = position_value_calculator(x)
+#         for trial in range(num_trials):
+#             print trial, i
+#             cumu_ret[trial] = float(random_outcome_per_position(i))
+#             # need to get the indexing correct for list in list.
+#             daily_ret[trial] = (cumu_ret[trial]/10000) - 1
+#     # print cumu_ret
+#     return cumu_ret, daily_ret
+

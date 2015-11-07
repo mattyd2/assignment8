@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 class dailypositionanalyzer(object):
     def __init__(self):
@@ -7,27 +8,32 @@ class dailypositionanalyzer(object):
         # if self.validinput != None or not(self.userinput): # also accounting for the user just hitting return here.
         # raise ValueError('Invalid Intervals. found a character that does not belong or there was nothing entered.')random_outcome_per_position(position_value_calculator(x))
 
-def trading_simluator(numberOfSharesOfSinglePosition, num_trials):
-    dayOfTrading = np.empty((num_trials, numberOfSharesOfSinglePosition))
-    cumu_ret = np.empty((num_trials))
-    for x in np.nditer(t, op_flags=['readwrite']):
-        positionValue
-
-
 def day_of_trading_simulator(positions, num_trials):
-    a = positions
-    cumu_ret = np.empty((num_trials))
-    iteratorationTracker = 0
-    for x in np.nditer(a[0,:], flags=['external_loop']):
-        if iteratorationTracker < num_trials:
-            dayOfTrading = np.empty((num_trials, x))
-        iteratorationTracker +=
-    return cumu_ret, daily_ret
+    listOfPositions = positions
+    indexLog = len(listOfPositions)
+    for x in range(indexLog):
+        cumu_ret = single_position_simluator(listOfPositions[x],num_trials)         #this is an array with the result of each day
+
+def single_position_simluator(numberOfSharesOfSinglePosition, num_trials):
+    dayOfTrading = np.empty((num_trials, numberOfSharesOfSinglePosition))
+    for x in np.nditer(dayOfTrading, op_flags=['readwrite']):
+        x[...] = daily_position_value_simulator(numberOfSharesOfSinglePosition)     #iterating over all the values in the ndarray and returning the randomized return.
+    cumu_ret = np.sum(dayOfTrading, axis=1)                                         #summing for each row which is a num_trial
+    print cumu_ret
+    daily_ret = np.empty((num_trials))
+    indexLog = len(daily_ret)
+    for i in range(indexLog):
+        daily_ret[i] = (cumu_ret[i]/1000) - 1
+    print daily_ret
+    return image_creation(daily_ret[i], numberOfSharesOfSinglePosition)
+
+def image_creation(daily_ret, numberOfSharesOfSinglePosition):
+    plt.hist(daily_ret,100,range=[-1,1])
+    nameOfFile = 'histogram_'+str(numberOfSharesOfSinglePosition).zfill(4)+'_.pos.png'
+    plt.savefig(nameOfFile)
 
 
-
-
-def position_value_calculator(position):
+def daily_position_value_simulator(position):
     positionValue = 1000/int(position)
     return random_outcome_per_position(positionValue)
 
@@ -37,48 +43,8 @@ def random_outcome_per_position(position_value):
         return position_value*2
     return 0
 
-
-
 def random_number_generator():
     randomlistZeroToOne = np.random.random()
     if (randomlistZeroToOne > 0.51):
         return 1
     return 0
-
-# def random_number_generator():
-#     randomlistZeroToOne = np.random.random(size=10000)
-#     sumBelow = (randomlistZeroToOne <= 0.51).sum()
-#     sumAbove = (randomlistZeroToOne > 0.51).sum()
-#     print randomlistZeroToOne, sumBelow, sumAbove
-#     if sumBelow > 5100:
-#         return 1
-#     else:
-#         return 0
-
-# def day_of_trading_simulator(position, num_trials):
-#     cumu_ret = range(num_trials)
-#     daily_ret = range(num_trials)
-#     position = position
-#     for trial in range(num_trials):
-#         print trial, position, position_value_calculator(position)
-#         cumu_ret[trial] = float(random_outcome_per_position(position_value_calculator(position)))
-#         daily_ret[trial] = (cumu_ret[trial]/10000) - 1
-#     return cumu_ret, daily_ret
-
-# def day_of_trading_simulator(positions, num_trials):
-#     cumu_ret = range(num_trials)
-#     # count = len(positions)
-#     daily_ret = [list(xrange(num_trials)) for _ in xrange(num_trials)]
-#     counter = -1
-#     for x in positions:
-#         counter += 1
-#         print "x in positions %d" % x
-#         i = position_value_calculator(x)
-#         for trial in range(num_trials):
-#             print trial, i
-#             cumu_ret[trial] = float(random_outcome_per_position(i))
-#             # need to get the indexing correct for list in list.
-#             daily_ret[trial] = (cumu_ret[trial]/10000) - 1
-#     # print cumu_ret
-#     return cumu_ret, daily_ret
-

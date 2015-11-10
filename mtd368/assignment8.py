@@ -13,8 +13,8 @@ from positionsimulator import day_of_trading, dailypositionanalyzer
 if __name__ == '__main__':
     try:
         while True:
-            # dailypositionanalyzer([1, 10, 100, 1000],10000)
-            # day_of_trading([1, 10, 100, 1000],10000)
+            dailypositionanalyzer([1, 10, 100, 1000],10000)
+            day_of_trading([1, 10, 100, 1000],10000)
             try:
                 trymore = raw_input('The simulatio has just run 10,000 times for positions 1, 10, 100, and 1000.  Would you try some others? [y/n] ')
                 if trymore == 'n':

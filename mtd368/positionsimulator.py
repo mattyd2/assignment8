@@ -5,6 +5,7 @@
 #date: 11/10/2015
 
 import numpy as np
+np.set_printoptions(threshold='nan') # to ensure entire arrays are printed.
 import matplotlib.pyplot as plt
 
 class dailypositionanalyzer(object):
